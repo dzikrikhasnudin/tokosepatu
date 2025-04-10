@@ -12,12 +12,16 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
+use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\ShoeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ShoeResource\RelationManagers;
+use Filament\Tables\Filters\SelectFilter;
 
 class ShoeResource extends Resource
 {
@@ -64,10 +68,25 @@ class ShoeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')->searchable(),
+                TextColumn::make('category.name'),
+                ImageColumn::make('thumbnail'),
+                IconColumn::make('is_popular')
+                ->boolean()
+                ->trueColor('success')
+                ->falseColor('danger')
+                ->trueIcon('heroicon-o-check-circle')
+                ->falseIcon('heroicon-o-x-circle')
+                ->label('Popular'),
             ])
             ->filters([
-                //
+                SelectFilter::make('category_id')
+                ->label('category')
+                ->relationship('category', 'name'),
+
+                SelectFilter::make('brand_id')
+                ->label('brand')
+                ->relationship('brand', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
