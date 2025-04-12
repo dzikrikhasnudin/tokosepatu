@@ -12,6 +12,6 @@ class PromoCode extends Model
 
     protected $fillable = [
         'code',
-        'dscount_amount',
+        'discount_amount',
     ];
 }

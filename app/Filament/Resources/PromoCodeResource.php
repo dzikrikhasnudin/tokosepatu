@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PromoCodeResource\Pages;
-use App\Filament\Resources\PromoCodeResource\RelationManagers;
-use App\Models\PromoCode;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
+use App\Models\PromoCode;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\PromoCodeResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\PromoCodeResource\RelationManagers;
+use Filament\Tables\Columns\TextColumn;
 
 class PromoCodeResource extends Resource
 {
@@ -23,7 +25,8 @@ class PromoCodeResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('code')->required()->maxLength(255),
+                TextInput::make('discount_amount')->required()->numeric()->prefix('IDR'),
             ]);
     }
 
@@ -31,7 +34,7 @@ class PromoCodeResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('code')->searchable()
             ])
             ->filters([
                 //
