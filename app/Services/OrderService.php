@@ -46,7 +46,7 @@ class OrderService
         $shoe = $this->shoeRepository->find($orderData['shoe_id']);
 
         $quantity = isset($orderData['quantity']) ? $orderData['quantity'] : 1;
-        $subTotalAmount = $shoe->price = $quantity;
+        $subTotalAmount = $shoe->price * $quantity;
 
         $taxRate = 0.11;
         $totalTax = $subTotalAmount * $taxRate;
