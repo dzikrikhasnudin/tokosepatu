@@ -69,7 +69,8 @@ class OrderService
             $grandTotalAmount = $subTotalAmount - $discount;
             $promoCodeId = $promo->id;
 
-            return ['discount' => $discount, 'grandTotalAmount' => $grandTotalAmount, 'promoCode' => $promoCodeId];
+            return ['discount' => $discount, 'grandTotalAmount' => $grandTotalAmount,
+            'promoCodeId' => $promoCodeId];
         }
 
         return ['error' => 'Kode promo tidak tersedia'];
