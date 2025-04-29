@@ -97,7 +97,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-semibold">Promo Code</p>
-                    <p class="font-bold">BELANJA</p>
+                    <p class="font-bold">{{ $orderData['promo_code'] }}</p>
                 </div>
                 <div class="flex items-center justify-between">
                     <p class="font-semibold">Discount</p>

@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Shoe;
 use Illuminate\Http\Request;
 use App\Services\OrderService;
+use App\Models\ProductTransaction;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\StorePaymentRequest;
+use App\Http\Requests\StoreCheckBookingRequest;
 use App\Http\Requests\StoreCustomerDataRequest;
-use App\Models\ProductTransaction;
 
 class OrderController extends Controller
 {
@@ -75,5 +76,21 @@ class OrderController extends Controller
     public function orderFinished(ProductTransaction $productTransaction)
     {
         return view('order.order_finished', compact('productTransaction'));
+    }
+
+    public function checkBooking(){
+        return view('order.my_order');
+    }
+
+    public function checkBookingDetails(StoreCheckBookingRequest $request){
+        $validated = $request->validated();
+
+        $orderDetails = $this->orderService->getMyOrderDetails($validated);
+
+        if ($orderDetails) {
+            return view('order.my_order_details', compact('orderDetails'));
+        }
+
+        return redirect()->route('front.check_booking')->withErrors(['error' => 'Transaction not found!']);
     }
 }
